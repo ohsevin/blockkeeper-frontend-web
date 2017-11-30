@@ -165,10 +165,23 @@ class AddrView extends React.Component {
           lbl='Disconnect wallet'
           actions={[{
             lbl: 'Disconnect',
-            onClick: async () => await this.delete()
+            onClick: async () => await this.delete(),
+            disabled: this.state.discConfirm !== this.state.name
           }]}
+          contentRaw={
+            <TextField
+              fullWidth
+              value={this.state.discConfirm}
+              onChange={evt => {
+                console.log('hi event', evt.target.value)
+                this.setState({discConfirm: evt.target.value})
+              }}
+            />
+          }
         >
           {`Disconnect wallet "${this.state.name}"?`}
+          <br />
+          Please type in the name of the wallet to confirm.
         </Modal>
       )
     } else if (this.state.addr && this.state.tscs) {

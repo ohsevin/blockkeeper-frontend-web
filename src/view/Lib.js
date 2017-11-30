@@ -510,6 +510,7 @@ class Modal extends React.Component {
     super(props)
     this.state = {}
     this.children = props.children
+    this.contentRaw = props.contentRaw
     this.open = (props.open == null) ? true : props.open
     this.onClose = props.onClose
     this.lbl = props.lbl || 'Error'
@@ -522,6 +523,7 @@ class Modal extends React.Component {
       this.btns.push(
         <Button
           key={ac.key || __.uuid()}
+          disabled={ac.disabled || false}
           onClick={
             props.withBusy
               ? async (...args) => {
@@ -537,6 +539,7 @@ class Modal extends React.Component {
       )
     }
   }
+
   render () {
     return (
       <Dialog
@@ -547,6 +550,7 @@ class Modal extends React.Component {
         <DialogTitle>{this.lbl}</DialogTitle>
         <DialogContent>
           <DialogContentText>{this.children}</DialogContentText>
+          {this.contentRaw}
         </DialogContent>
         {!this.state.busy &&
           this.btns &&
